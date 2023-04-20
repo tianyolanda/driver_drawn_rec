@@ -1,0 +1,2 @@
+model={logicool_c615n}
+position={o}

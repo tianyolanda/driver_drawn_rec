@@ -1,0 +1,50 @@
+PATH:
+    video_file: 0 # 'test_videos/test3.mov' # 0 # is real-time processing
+    root_dir: './data/camera/'
+    face_recognition_model: './models/face_recognition_sface_2021dec.onnx' # Path to the face recognition model.
+    face_detection_model: './models/face_detection_yunet_2021dec.onnx' # Path to the face detection model.
+
+IMAGE:
+    scale: 0.25 # Scale factor used to resize input camera image frames. The smaller, the faster.
+
+DETECTION:
+    score_threshold: 0.93 # Filtering out faces of score < score_threshold.
+    nms_threshold: 0.3  # Suppress bounding boxes of iou >= nms_threshold.
+    nms_top_k: 5000 # Keep top_k bounding boxes before nms.
+
+RECOGNITION:
+    unknown_person_avg_rec_thresh: 0.2  # average cosine similarity (in tracking_thresh frames) lower than this one, will publish alert
+    cosine_similarity_threshold_high: 0.33 # one frame has very high similarity -> change to registered person. In the original paper 0.363
+    cosine_similarity_threshold_medium: 0.3  # sequence frame has less similarity, but successful tracking for a while -> then change to registered person
+    l2_similarity_threshold: 1.128  # haven't use,  now only use cosine similarity
+
+TRACKING:
+    iou_threshold: 0.6  # intersection over union threshold to judge two bounding boxes (from two consecutive frames) as the same one.
+    tracking_thresh: 10 # after how much frames tracking, we identify this person is a positive detection (not a suddenly mistake detection), so as to raise alert of unknown people or change status of resident.
+    known_people_lost_thresh: 30 # after how much frames, we identify an known person as disappear from door region.
+    unknown_person_tracking_thresh: 6 # in raspbarry pi, if the person is unknown, the fps will be low because of every frame needs to do classification. So it is hard to track a person for a large numbers of frames. So I set a smaller tracking threshold for unknown people.
+
+PIR:
+    threshold_in_toilet_duration: 10 # seconds, assume how long a person may stay in toilet, in this period, the u0 message will only send once
+    threshold_alert_duration: 15 # seconds # how long duration should a person go to toilet, if longer than this duration, raise a0 alert of no activity
+    serial_path: '/dev/rfcomm0' # '/dev/serial/by-id/usb-Arduino_LLC_Arduino_Micro-if00' # for for ubuntu; # '/dev/rfcomm0' # for for raspberry pi
+    baud: 9600
+
+SERVER:
+    SERVER_URL: 'https://smartappli.sakura.ne.jp/api.php/records/tb_aiterminal1/'  # Public IP Address of Server
+    TERMINAL_ID: 0001 # ID of current AI Terminal
+OTHERS:
+    going_out_alert_threshold: 15 # seconds # person going out for a long time, should raise a1 alert of 'Went out for a long time'
+
+OUTPUT:
+    save: False # output a video
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+<installation guidance of camera driver recognition program>
+Version 1.0
+Date: 2023.4.20
+Author: wu yutian
+Email: wuyutian@fuji.waseda.jp 
+
+1. Copy the source files folder camera_face_rec/ to /home/pi/
+
+2. Install the dependency libraries
+
+open a terminal, 
+
+$ cd camera_face_rec/libraries
+
+$ pip3 install opencv_python-4.5.5.64-cp39-cp39-linux_armv7l.whl
+(other version may has error for this code)
+
+$ sudo apt-get install libatlas-base-dev
+
+$ pip3 install pip-22.1.2-py3-none-any.whl
+
+$ pip3 install numpy-1.22.3-cp39-cp39-linux_armv7l.whl
+(may appear some warnings, ignore it)
+
+$ pip3 install PyYAML-6.0-cp39-cp39-linux_armv7l.whl
+
+$ pip3 install easydict-1.9-py3-none-any.whl
+
+3. Prepare the driver and driver's friends photos and status data in camera_face_rec/data/camera/.
+I have provided an example, you can copy it to the path for test. 
+
+4. Connect the logicool-c615n (other type may also work) camera to raspberry pi by USB port
+
+5. Run program
+
+open a terminal,
+
+$ cd camera_face_rec/
+
+$ python3 multiperson_face_detect_and_rec_ioutrack_pi_v1.0_driver.py
